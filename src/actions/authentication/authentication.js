@@ -14,7 +14,7 @@ export const login = (email, password) => {
       dispatch({type: LOGIN_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {
-      dispatch({type: LOGIN_ERROR});
+      dispatch({type: LOGIN_ERROR, error: error.message});
     });
   }
 }
@@ -39,7 +39,7 @@ export const signup = (values) => {
       dispatch({type: REGISTER_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {
-      dispatch({type: REGISTER_ERROR});
+      dispatch({type: REGISTER_ERROR, error: error.message});
     });
   }
 

@@ -11,7 +11,7 @@ export const post = function(endpoint, body, params){
         resolve(response);
       }
     }).catch(error => {
-        reject(error);
+        reject(error.response.data);
     });
   });
 }

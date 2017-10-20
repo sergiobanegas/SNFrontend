@@ -22,7 +22,6 @@
        return (
          <div>
            Login
-           <span>{error}</span>
            <LoginForm
              onSubmit={this._onSubmit}
              onRegister={this._onRegister}
@@ -30,7 +29,7 @@
            <Link to="/">
             <button>Go Home</button>
            </Link>
-           {error && <p>Error logging in</p>}
+           {error && <p>{error}</p>}
          </div>
        )
      }
