@@ -46,12 +46,12 @@ form: 'register-form'
 const selector = formValueSelector('register-form');
 
 RegisterForm = connect(state => {
-  const isIncomplete = !selector(state, 'email') || !selector(state, 'name') || !selector(state, 'password') || !selector(state, 'gender');
+  const isIncomplete = !selector(state, 'email') || !selector(state, 'name') || !selector(state, 'password') || !selector(state, 'passwordConfirmation') || !selector(state, 'gender');
   const differentPasswords = (selector(state, 'password') && selector(state, 'passwordConfirmation')) && selector(state, 'password') !== selector(state, 'passwordConfirmation');
   return {
     isIncomplete,
     differentPasswords
   }
-})(RegisterForm)
+})(RegisterForm);
 
 export default RegisterForm;

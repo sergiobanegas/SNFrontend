@@ -1,8 +1,9 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 let LoginForm = props => {
-  const { handleSubmit, onRegister } = props;
+  const { handleSubmit, onRegister, isIncomplete } = props;
   return (
     <div>
       <form onSubmit={ handleSubmit }>
@@ -16,13 +17,22 @@ let LoginForm = props => {
         </div>
         <button type="submit">Submit</button>
       </form>
-      <button onClick={ onRegister }>Register</button>
+      <button onClick={ onRegister } disabled={isIncomplete}>Register</button>
     </div>
   )
 }
 
 LoginForm = reduxForm({
 form: 'login-form'
-})(LoginForm)
+})(LoginForm);
+
+const selector = formValueSelector('login-form');
+
+LoginForm = connect(state => {
+  const isIncomplete = !selector(state, 'email') || !selector(state, 'password');
+  return {
+    isIncomplete
+  }
+})(LoginForm);
 
 export default LoginForm;
