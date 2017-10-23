@@ -10,7 +10,7 @@ import { post } from '../../services/http';
 export const login = (email, password) => {
   return dispatch => {
     post(URI_LOGIN, {email: email, password: password}, null).then(response => {
-      localStorage.setItem(USER_TOKEN, response.data.token);
+      localStorage.setItem(USER_TOKEN, response.token);
       dispatch({type: LOGIN_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {

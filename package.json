@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "history": "^4.7.2",
+    "moment": "^2.19.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
@@ -24,5 +25,16 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8000"
+    },
+    "/auth": {
+      "target": "http://localhost:8000"
+    },
+    "/files": {
+      "target": "http://localhost:8000"
+    }
   }
 }

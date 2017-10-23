@@ -1,8 +1,9 @@
-export const BACKEND_URL = "http://localhost:8000";
+export const USER_TOKEN = "user_token";
+
 const URI_AUTH = "/auth";
-//const URI_API =  "/api";
+const URI_API =  "/api";
 
 export const URI_LOGIN = URI_AUTH + "/login";
 export const URI_SIGNUP = URI_AUTH + "/signup";
 
-export const USER_TOKEN = "user_token";
+export const URI_POSTS = URI_API + "/posts";

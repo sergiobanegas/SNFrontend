@@ -12,7 +12,7 @@ export default class MainMenu extends Component {
     const {onLogout} = this.props;
     const activeItem = "home";
     return (
-      <Menu>
+      <Menu className="ui blue inverted">
         <Menu.Item name="home" active={activeItem === "home"}/>
         <Menu.Item name="messages" active={activeItem === "messages"}/>
         <Menu.Menu position="right">
@@ -23,8 +23,8 @@ export default class MainMenu extends Component {
               <Dropdown.Item>Spanish</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item>
-            <Button primary onClick={onLogout}>Logout</Button>
+          <Menu.Item onClick={onLogout}>
+            <b>Logout</b>
           </Menu.Item>
         </Menu.Menu>
       </Menu>

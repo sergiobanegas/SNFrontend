@@ -23,9 +23,9 @@ let LoginForm = props => {
          <FormInput name="email" type="text" label="Email"/>
          </Form.Group>
          <Form.Group widths='equal'>
-         <FormInput name="password" type="text" label="Password"/>
+         <FormInput name="password" type="password" label="Password"/>
        </Form.Group>
-       <Button type="submit" disabled={isIncomplete}>Submit</Button>
+       <Button primary type="submit" disabled={isIncomplete}>Submit</Button>
       </Form>
       <Divider section />
       <span> <Icon name='help' />Don't have an account yet? click &nbsp;<Link to="/register">here</Link> to register</span>
