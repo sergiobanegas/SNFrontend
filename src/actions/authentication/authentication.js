@@ -4,13 +4,13 @@ import { LOGIN_SUCCESS } from '../../types/authentication';
 import { REGISTER_ERROR } from '../../types/authentication';
 import { REGISTER_SUCCESS } from '../../types/authentication';
 import { LOGOUT } from '../../types/authentication';
-import { URI_LOGIN, URI_SIGNUP } from '../../config';
+import { URI_LOGIN, URI_SIGNUP, USER_TOKEN } from '../../config';
 import { post } from '../../services/http';
 
 export const login = (email, password) => {
   return dispatch => {
     post(URI_LOGIN, {email: email, password: password}, null).then(response => {
-      localStorage.setItem('user_token', response.data.token);
+      localStorage.setItem(USER_TOKEN, response.data.token);
       dispatch({type: LOGIN_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {
@@ -21,7 +21,7 @@ export const login = (email, password) => {
 
 export const logout = () => {
   return (dispatch, getState) => {
-    localStorage.removeItem('user_token');
+    localStorage.removeItem(USER_TOKEN);
     dispatch({type: LOGOUT});
     dispatch(push('/login'));
   }
@@ -35,7 +35,7 @@ export const signup = (values) => {
       name: values.name,
       gender: values.gender
     }, null).then(response => {
-      localStorage.setItem('user_token', response.data.token);
+      localStorage.setItem(USER_TOKEN, response.data.token);
       dispatch({type: REGISTER_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {

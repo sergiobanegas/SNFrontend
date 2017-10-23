@@ -2,20 +2,21 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {logout} from '../../../actions/authentication/authentication';
+import MainMenu from '../../../components/menu/MainMenu';
 
-class Logout extends Component {
+class Menu extends Component {
   logout(){
     const { dispatch } = this.props;
-    localStorage.removeItem("user_token");
     dispatch(logout());
   }
   render () {
     const {logged} = this.props;
-    return logged ? <button onClick={this.logout.bind(this)}>Logout</button> : "";
+    const activeItem = "home";
+    return (
+        <MainMenu logged={logged} onLogout={this.logout.bind(this)} activeItem={activeItem}/>
+    );
   }
-  componentWillReceiveProps(){
-    console.log(this.props);
-  }
+
 }
 
 const mapStateToProps = state => {
@@ -33,4 +34,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Logout));
+)(Menu));

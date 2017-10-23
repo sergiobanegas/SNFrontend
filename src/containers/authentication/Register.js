@@ -14,7 +14,6 @@ class Register extends Component {
      const {error} = this.props;
      return (
        <div>
-         Register
          <span>{error}</span>
          <RegisterForm
            onSubmit={this._onSubmit}

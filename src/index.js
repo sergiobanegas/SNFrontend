@@ -5,6 +5,7 @@ import AppRoutes from './routes';
 import { ConnectedRouter } from 'react-router-redux';
 import store from './store';
 import createBrowserHistory from 'history/createBrowserHistory';
+import 'semantic-ui-css/semantic.min.css';
 
 var history = createBrowserHistory();
 

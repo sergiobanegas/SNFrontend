@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import Logout from '../../components/authentication/logout/Logout';
+import Menu from './menu/Menu';
 
 export default class App extends Component {
-  logout(){
-    localStorage.removeItem("user_token");
-  }
   render () {
     return (
       <div>
-        <Logout/>
+        <Menu/>
       </div>
     )
   }

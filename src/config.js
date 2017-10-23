@@ -4,3 +4,5 @@ const URI_AUTH = "/auth";
 
 export const URI_LOGIN = URI_AUTH + "/login";
 export const URI_SIGNUP = URI_AUTH + "/signup";
+
+export const USER_TOKEN = "user_token";

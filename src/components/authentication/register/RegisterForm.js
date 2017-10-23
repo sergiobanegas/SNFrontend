@@ -1,40 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm, formValueSelector } from 'redux-form';
+import { Button, Form, Segment, Message } from 'semantic-ui-react';
+import FormInput from '../../../components/utils/FormInput';
+import styled from 'styled-components';
+
+const Title = styled.h1`
+  color: ${props => props.color ||  'goldenrod'}
+`;
 
 let RegisterForm = props => {
   const { handleSubmit, isIncomplete, differentPasswords } = props;
   const passwordErrorText = "Passwords don't match";
+  var genderOptions = [
+    { key: 'male', value: 'male', text: 'Male' },
+    { key: 'female', value: 'female', text: 'Female' }
+  ];
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
-        <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" component="input" type="text"/>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <Field name="password" component="input" type="password" />
-        </div>
-        {differentPasswords && <div>{passwordErrorText}</div>}
-        <div>
-          <label htmlFor="passwordConfirmation">Password confirmation</label>
-          <Field name="passwordConfirmation" component="input" type="password" />
-        </div>
-        <div>
-          <label htmlFor="name">Name</label>
-          <Field name="name" component="input" type="text" />
-        </div>
-        <div>
-          <label htmlFor="gender">Gender</label>
-          <Field name="gender" component="select">
-            <option></option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </Field>
-        </div>
-        <button type="submit" disabled={isIncomplete || differentPasswords}>Submit</button>
-      </form>
+    <div className="ui one column stackable center aligned page grid">
+   <div className="column twelve wide">
+    <Title>Register</Title>
+    <Segment>
+    <p>Fill the following fields in order to register a new user</p>
+      <Form onSubmit={ handleSubmit }>
+        <Form.Group widths='equal'>
+          <FormInput name="email" type="email" label="Email"/>
+          <FormInput name="name" type="text" label="Name"/>
+        </Form.Group>
+        <Form.Group widths='equal'>
+          <FormInput name="password" type="password" label="Password"/>
+          <FormInput name="passwordConfirmation" type="password" label="Password confirmation"/>
+        </Form.Group>
+        {differentPasswords && <Message negative><p>{passwordErrorText}</p></Message>}
+        <Form.Group widths='equal'>
+          <FormInput name="gender" type="select" options={genderOptions} label="Gender"/>
+        </Form.Group>
+        <Button primary type="submit" disabled={isIncomplete || differentPasswords}>Submit</Button>
+      </Form>
+    </Segment>
+    </div>
     </div>
   )
 }
