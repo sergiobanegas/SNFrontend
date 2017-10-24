@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {logout} from '../../actions/authentication/authentication';
-import { Button, Dropdown, Menu } from 'semantic-ui-react';
+import { Dropdown, Menu } from 'semantic-ui-react';
 
 export default class MainMenu extends Component {
   logout(){

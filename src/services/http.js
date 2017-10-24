@@ -1,4 +1,3 @@
-import { BACKEND_URL } from '../config';
 import { getUserToken } from './storage';
 
 var axios = require('axios');

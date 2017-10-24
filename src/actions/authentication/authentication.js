@@ -1,9 +1,5 @@
 import { push } from 'react-router-redux';
-import { LOGIN_ERROR } from '../../types/authentication';
-import { LOGIN_SUCCESS } from '../../types/authentication';
-import { REGISTER_ERROR } from '../../types/authentication';
-import { REGISTER_SUCCESS } from '../../types/authentication';
-import { LOGOUT } from '../../types/authentication';
+import { LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_ERROR, REGISTER_SUCCESS, LOGOUT } from '../../types/authentication';
 import { URI_LOGIN, URI_SIGNUP, USER_TOKEN } from '../../config';
 import { post } from '../../services/http';
 
