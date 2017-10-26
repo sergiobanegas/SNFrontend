@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import PostComponent from './PostComponent';
+import { Grid } from 'semantic-ui-react';
 
 export default class PostListComponent extends Component {
 
   render () {
     const { posts, replies, activePostsIds, activeCommentsIds, comments, onToggleCommentReplies, onTogglePostComments } = this.props;
     return (
-      <div className="ui one center aligned page grid">
-        <div className="twelve wide column left aligned">
+      <Grid centered>
+        <Grid.Column width={8}>
           {
             posts.map(post => {
               return (
@@ -25,8 +26,8 @@ export default class PostListComponent extends Component {
               })
             }
             { posts.length === 0 && <span>No posts to show</span>}
-        </div>
-      </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 
