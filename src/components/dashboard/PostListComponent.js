@@ -8,7 +8,7 @@ export default class PostListComponent extends Component {
     const { posts, replies, activePostsIds, activeCommentsIds, comments, onToggleCommentReplies, onTogglePostComments } = this.props;
     return (
       <Grid centered>
-        <Grid.Column width={8}>
+        <Grid.Column computer={8} tablet={12} mobile={14}>
           {
             posts.map(post => {
               return (

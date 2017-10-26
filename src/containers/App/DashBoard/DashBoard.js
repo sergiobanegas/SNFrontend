@@ -15,6 +15,12 @@ const DashBoardContainer = styled(Sidebar.Pushable)`
 
 const ContentContainer = styled(Sidebar.Pusher)`
   padding-top:1em;
+  padding-bottom:1em;
+`;
+const ConversationsToggleButton = styled.div`
+  position:absolute;
+  right:0px;
+  z-index:100;
 `;
 
 class DashBoard extends Component {
@@ -56,7 +62,9 @@ class DashBoard extends Component {
           </Sidebar>
           <ContentContainer>
             <div>
-            <ConversationListToggleComponent onToggle={this.onToggleConversations.bind(this)}/>
+            <ConversationsToggleButton>
+              <ConversationListToggleComponent onToggle={this.onToggleConversations.bind(this)}/>
+            </ConversationsToggleButton>
             <PostListComponent
               posts={posts}
               activePostsIds={activePostsIds}
