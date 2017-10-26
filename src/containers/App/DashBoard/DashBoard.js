@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import { List, Sidebar, Segment } from 'semantic-ui-react';
-import {getDashBoardPosts, getUserConversations, toggleConversations, togglePostComments} from '../../../actions/dashboard/dashboard';
+import { Sidebar, Segment } from 'semantic-ui-react';
+import {getDashBoardPosts, getUserConversations, toggleConversations, togglePostComments, toggleCommentReplies} from '../../../actions/dashboard/dashboard';
 import PostListComponent from '../../../components/dashboard/PostListComponent';
 import ConversationListComponent from '../../../components/dashboard/ConversationListComponent';
 import ConversationListToggleComponent from '../../../components/dashboard/ConversationListToggleComponent';
@@ -30,13 +30,18 @@ class DashBoard extends Component {
     dispatch(toggleConversations());
   }
 
-  onTogglePostComments(id, index) {
+  onTogglePostComments(id) {
     const { dispatch } = this.props;
-    dispatch(togglePostComments(id, index));
+    dispatch(togglePostComments(id));
+  }
+
+  onToggleCommentReplies(id) {
+    const { dispatch } = this.props;
+    dispatch(toggleCommentReplies(id));
   }
 
   render () {
-    const { indexOfPostWithCommentsVisible, errorPosts, errorComments, errorConversations, posts, conversations, conversationsVisible, activeIndex, comments } = this.props;
+    const { activePostsIds, activeCommentsIds, posts, replies, conversations, conversationsVisible, comments } = this.props;
     return (
       <DashBoardContainer>
           <Sidebar
@@ -52,9 +57,14 @@ class DashBoard extends Component {
           <ContentContainer>
             <div>
             <ConversationListToggleComponent onToggle={this.onToggleConversations.bind(this)}/>
-            <PostListComponent posts={posts} activeIndex={indexOfPostWithCommentsVisible} onTogglePostComments={this.onTogglePostComments.bind(this)} comments={comments}/>
-            {errorPosts && <span>Error loading the posts</span>}
-            {errorConversations && <span>Error loading the conversations</span>}
+            <PostListComponent
+              posts={posts}
+              activePostsIds={activePostsIds}
+              activeCommentsIds={activeCommentsIds}
+              onTogglePostComments={this.onTogglePostComments.bind(this)}
+              onToggleCommentReplies={this.onToggleCommentReplies.bind(this)}
+              replies={replies}
+              comments={comments}/>
             </div>
           </ContentContainer>
         </DashBoardContainer>
@@ -70,8 +80,10 @@ const mapStateToProps = state => {
     conversations: state.dashboardReducer.conversations || [],
     errorConversations: state.dashboardReducer.errorConversations,
     conversationsVisible: state.dashboardReducer.conversationsVisible,
-    indexOfPostWithCommentsVisible: state.dashboardReducer.indexOfPostWithCommentsVisible,
-    comments: state.dashboardReducer.comments
+    activePostsIds: state.dashboardReducer.activePostsIds || [],
+    activeCommentsIds: state.dashboardReducer.activeCommentsIds || [],
+    comments: state.dashboardReducer.comments,
+    replies: state.dashboardReducer.replies || []
   }
 }
 

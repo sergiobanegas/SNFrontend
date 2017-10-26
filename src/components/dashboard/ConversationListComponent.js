@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { List, Sidebar, Segment } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import moment from 'moment';
 
 export default class ConversationListComponent extends Component {
   render () {
-    const { conversations, visible } = this.props;
+    const { conversations } = this.props;
     return (
       <List divided verticalAlign='middle'>
         {
