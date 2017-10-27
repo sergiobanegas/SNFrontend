@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import { Sidebar, Segment } from 'semantic-ui-react';
-import {getDashBoardPosts, getUserConversations, toggleConversations, togglePostComments, toggleCommentReplies} from '../../../actions/dashboard/dashboard';
+import {getDashBoardPosts, getUserConversations, toggleConversations, togglePostComments, toggleCommentReplies, likeComment, likeReply} from '../../../actions/dashboard/dashboard';
 import PostListComponent from '../../../components/dashboard/PostListComponent';
 import ConversationListComponent from '../../../components/dashboard/ConversationListComponent';
 import ConversationListToggleComponent from '../../../components/dashboard/ConversationListToggleComponent';
@@ -46,6 +46,16 @@ class DashBoard extends Component {
     dispatch(toggleCommentReplies(id));
   }
 
+  onCommentLiked(id, postId) {
+    const { dispatch } = this.props;
+    dispatch(likeComment(id, postId));
+  }
+
+  onReplyLiked(id, parent) {
+    const { dispatch } = this.props;
+    dispatch(likeReply(id, parent));
+  }
+
   render () {
     const { activePostsIds, activeCommentsIds, posts, replies, conversations, conversationsVisible, comments } = this.props;
     return (
@@ -71,6 +81,8 @@ class DashBoard extends Component {
               activeCommentsIds={activeCommentsIds}
               onTogglePostComments={this.onTogglePostComments.bind(this)}
               onToggleCommentReplies={this.onToggleCommentReplies.bind(this)}
+              onCommentLiked={this.onCommentLiked.bind(this)}
+              onReplyLiked={this.onReplyLiked.bind(this)}
               replies={replies}
               comments={comments}/>
             </div>

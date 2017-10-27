@@ -2,9 +2,10 @@ import { REQUEST_DASHBOARD, REQUEST_DASHBOARD_SUCCESS, REQUEST_DASHBOARD_ERROR,
   REQUEST_USER_CONVERSATIONS, REQUEST_USER_CONVERSATIONS_SUCCESS,
   REQUEST_USER_CONVERSATIONS_ERROR, TOGGLE_CONVERSATIONS,
   TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR,
-  TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR } from '../../types/dashboard';
-import { URI_POSTS, URI_COMMENTS, URI_CONVERSATIONS } from '../../config';
-import { get } from '../../services/http';
+  TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR,
+  COMMENT_LIKE_SUCCESS, COMMENT_LIKE_ERROR, REPLY_LIKE_SUCCESS, REPLY_LIKE_ERROR} from '../../types/dashboard';
+import { URI_POSTS, URI_COMMENTS, URI_CONVERSATIONS, URI_LIKE } from '../../config';
+import { get, post } from '../../services/http';
 
 export const getDashBoardPosts = () => {
   return dispatch => {
@@ -54,6 +55,26 @@ export const toggleCommentReplies = commentId => {
       dispatch({type: GET_COMMENT_REPLIES_SUCCESS, replies: response.replies, commentId: commentId});
     }).catch(error => {
       dispatch({type: GET_COMMENT_REPLIES_ERROR, error: error.message});
+    });
+  }
+}
+
+export const likeComment = (commentId, postId) => {
+  return (dispatch, getState) => {
+     post(`${URI_COMMENTS}/${commentId}/${URI_LIKE}`, null, null).then(response => {
+      dispatch({type: COMMENT_LIKE_SUCCESS, commentId: commentId, postId: postId, likes: response});
+    }).catch(error => {
+      dispatch({type: COMMENT_LIKE_ERROR, error: error.message});
+    });
+  }
+}
+
+export const likeReply = (replyId, parentId) => {
+  return (dispatch, getState) => {
+     post(`${URI_COMMENTS}/${replyId}/${URI_LIKE}`, null, null).then(response => {
+      dispatch({type: REPLY_LIKE_SUCCESS, replyId: replyId, likes: response, parentId: parentId});
+    }).catch(error => {
+      dispatch({type: REPLY_LIKE_ERROR, error: error.message});
     });
   }
 }

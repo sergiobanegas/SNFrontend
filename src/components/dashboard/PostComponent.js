@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-import { Card, Accordion, Icon, Comment } from 'semantic-ui-react';
+import { Card, Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentComponent from './CommentComponent';
 
 export default class PostComponent extends Component {
@@ -11,9 +11,9 @@ export default class PostComponent extends Component {
   }
 
   render () {
-    const { post, replies, onToggleCommentReplies, activePostsIds, activeCommentsIds, comments } = this.props;
-    let active = activePostsIds.indexOf(post._id) > -1;;
-    let postComments = comments.get(post._id) ? comments.get(post._id) : [];
+    const { post, replies, onToggleCommentReplies, onCommentLiked, onReplyLiked, activePostsIds, activeCommentsIds, comments } = this.props;
+    let active = activePostsIds.indexOf(post._id) > -1;
+    let loading = post.comments.length > 0 && comments.length === 0;
     return (
       <Card key={post._id} fluid>
        <Card.Content>
@@ -34,13 +34,14 @@ export default class PostComponent extends Component {
        <span className="right floated time">{moment(post.createdAt).fromNow()}</span>
        <Accordion>
         <Accordion.Title active={active} onClick={this.handleViewPostComments.bind(this)}>
-          <Icon name='dropdown' />
+          <Icon name="dropdown" />
           View comments ({post.comments.length})
         </Accordion.Title>
         <Accordion.Content active={active}>
             <Comment.Group>
-              {postComments.map(comment => {
-                return <CommentComponent comment={comment} key={comment._id} activeCommentsIds={activeCommentsIds} replies={replies} onToggleCommentReplies={onToggleCommentReplies}/>
+             <Loader active={loading} inline="centered"/>
+              {comments.map(comment => {
+                return <CommentComponent comment={comment} key={comment._id} activeCommentsIds={activeCommentsIds} replies={replies} onToggleCommentReplies={onToggleCommentReplies} onCommentLiked={onCommentLiked} onReplyLiked={onReplyLiked}/>
               })}
             </Comment.Group>
         </Accordion.Content>

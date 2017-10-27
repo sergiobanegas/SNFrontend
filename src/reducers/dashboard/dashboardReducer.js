@@ -2,7 +2,8 @@ import { REQUEST_DASHBOARD, REQUEST_DASHBOARD_SUCCESS, REQUEST_DASHBOARD_ERROR,
   REQUEST_USER_CONVERSATIONS, REQUEST_USER_CONVERSATIONS_SUCCESS,
   REQUEST_USER_CONVERSATIONS_ERROR, TOGGLE_CONVERSATIONS,
   TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR,
-  TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR } from '../../types/dashboard';
+  TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR,
+  COMMENT_LIKE_SUCCESS, REPLY_LIKE_SUCCESS } from '../../types/dashboard';
 
 var HashMap = require('hashmap');
 
@@ -51,7 +52,6 @@ switch(action.type) {
  case GET_POST_COMMENTS_SUCCESS:
   let newComments = new HashMap(state.comments);
   newComments.set(action.postId, action.comments);
-  debugger;
   return {...state, comments: newComments, errorComments: false};
  case GET_POST_COMMENTS_ERROR:
  return {...state, errorComments: true};
@@ -69,11 +69,25 @@ switch(action.type) {
    }
    return {...state, activeCommentsIds: activeComments};
  case GET_COMMENT_REPLIES_SUCCESS:
- let replies = new HashMap(state.replies);
- replies.set(action.commentId, action.replies);
+   let replies = new HashMap(state.replies);
+   replies.set(action.commentId, action.replies);
  return {...state, replies: replies, errorReplies: false};
  case GET_COMMENT_REPLIES_ERROR:
  return {...state, errorComments: true};
+ case COMMENT_LIKE_SUCCESS:
+ let commentLikedUpdatedArray = new HashMap(state.comments);
+ let commentModified = commentLikedUpdatedArray.get(action.postId).find(c => c._id === action.commentId);
+ if (commentModified){
+   commentModified.likes = action.likes;
+ }
+ return {...state, comments: commentLikedUpdatedArray}
+ case REPLY_LIKE_SUCCESS:
+   let replyLikedUpdatedArray = new HashMap(state.replies);
+   let replyLiked = replyLikedUpdatedArray.get(action.parentId).find(r => r._id === action.replyId);
+   if (replyLiked)  {
+     replyLiked.likes = action.likes;
+   }
+ return {...state, replies: replyLiked ? replyLikedUpdatedArray : replies}
  default :
  return state
  }
