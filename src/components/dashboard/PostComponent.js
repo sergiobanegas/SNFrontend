@@ -1,19 +1,12 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import { Card, Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
-import CommentComponent from './CommentComponent';
+import CommentContainer from '../../containers/App/Dashboard/CommentContainer';
 
 export default class PostComponent extends Component {
 
-  handleViewPostComments(){
-    const { onTogglePostComments, post } = this.props;
-    onTogglePostComments(post._id);
-  }
-
   render () {
-    const { post, replies, onToggleCommentReplies, onCommentLiked, onReplyLiked, activePostsIds, activeCommentsIds, comments } = this.props;
-    let active = activePostsIds.indexOf(post._id) > -1;
-    let loading = post.comments.length > 0 && comments.length === 0;
+    const { post, comments, active, onTogglePostComments, loadingComments } = this.props;
     return (
       <Card key={post._id} fluid>
        <Card.Content>
@@ -33,15 +26,15 @@ export default class PostComponent extends Component {
        <div className="extra content">
        <span className="right floated time">{moment(post.createdAt).fromNow()}</span>
        <Accordion>
-        <Accordion.Title active={active} onClick={this.handleViewPostComments.bind(this)}>
+        <Accordion.Title active={active} onClick={onTogglePostComments}>
           <Icon name="dropdown" />
           View comments ({post.comments.length})
         </Accordion.Title>
         <Accordion.Content active={active}>
             <Comment.Group>
-             <Loader active={loading} inline="centered"/>
+             <Loader active={loadingComments} inline="centered"/>
               {comments.map(comment => {
-                return <CommentComponent comment={comment} key={comment._id} activeCommentsIds={activeCommentsIds} replies={replies} onToggleCommentReplies={onToggleCommentReplies} onCommentLiked={onCommentLiked} onReplyLiked={onReplyLiked}/>
+                return <CommentContainer key={comment._id} comment={comment}/>
               })}
             </Comment.Group>
         </Accordion.Content>

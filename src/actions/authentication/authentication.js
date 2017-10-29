@@ -31,7 +31,7 @@ export const signup = (values) => {
       name: values.name,
       gender: values.gender
     }, null).then(response => {
-      localStorage.setItem(USER_TOKEN, response.data.token);
+      localStorage.setItem(USER_TOKEN, response.token);
       dispatch({type: REGISTER_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {

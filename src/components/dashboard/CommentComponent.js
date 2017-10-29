@@ -1,29 +1,13 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import { Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
+import CommentContainer from '../../containers/App/Dashboard/CommentContainer';
 
 export default class CommentComponent extends Component {
 
-  handleViewCommentReplies(){
-    const { onToggleCommentReplies, comment } = this.props;
-    onToggleCommentReplies(comment._id);
-  }
-
-  onLike() {
-    const { onCommentLiked, comment, onReplyLiked } = this.props;
-    if(comment.parent) {
-      onReplyLiked(comment._id, comment.parent);
-    } else {
-      onCommentLiked(comment._id, comment.post);
-    }
-
-  }
-
   render () {
-    const { comment, replies, activeCommentsIds, onToggleCommentReplies, onCommentLiked, onReplyLiked } = this.props;
-    let active = activeCommentsIds.indexOf(comment._id) > -1;
-    let commentReplies = !replies ? [] : replies.get(comment._id) ? replies.get(comment._id) : [];
-    let loading = commentReplies.length > 0 && replies.get(comment._id) === undefined;
+    const { comment, replies, active, onToggleCommentReplies, onCommentLiked, likes } = this.props;
+    let loading = false;
     return (
       <Comment key={comment._id}>
         <Comment.Avatar src={comment.author.avatar} />
@@ -34,9 +18,9 @@ export default class CommentComponent extends Component {
           </Comment.Metadata>
             <Comment.Text>{comment.content}</Comment.Text>
            <Comment.Actions>
-              <Comment.Action onClick={this.onLike.bind(this)}>
+              <Comment.Action onClick={onCommentLiked}>
                 <Icon color='green' name='thumbs outline up'/>
-                Like ({comment.likes.length})
+                Like ({likes.length})
               </Comment.Action>
              <Comment.Action>Reply</Comment.Action>
            </Comment.Actions>
@@ -45,7 +29,7 @@ export default class CommentComponent extends Component {
            comment.replies.length > 0 && (
              <div>
                <Accordion>
-                 <Accordion.Title active={active} onClick={this.handleViewCommentReplies.bind(this)}>
+                 <Accordion.Title active={active} onClick={onToggleCommentReplies}>
                    <Icon name='dropdown'/>
                    View comments ({comment.replies.length})
                  </Accordion.Title>
@@ -54,8 +38,8 @@ export default class CommentComponent extends Component {
                {active && (
                  <div>
                    <Loader active={loading} inline="centered"/>
-                   {commentReplies.map(reply => {
-                         return <CommentComponent replies={replies} comment={reply} activeCommentsIds={activeCommentsIds} key={reply._id} onToggleCommentReplies={onToggleCommentReplies} onCommentLiked={onCommentLiked} onReplyLiked={onReplyLiked}/>
+                   {replies.map(reply => {
+                    return <CommentContainer key={reply._id} comment={reply}/>
                    })}
                    </div>
                  )}

@@ -4,7 +4,8 @@ var axios = require('axios');
 
 export const post = function(endpoint, body, params){
   return new Promise((resolve, reject) => {
-    let headers = { Authorization: "JWT " + getUserToken() };
+    let token = getUserToken();
+    let headers = token ? { Authorization: "JWT " + token } : {};
     axios.post(endpoint, body, {headers: headers}).then(response => {
       if (!response.data){
         reject();
