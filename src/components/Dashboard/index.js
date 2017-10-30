@@ -22,7 +22,7 @@ const ConversationsToggleButton = styled.div`
 
 const DashboardComponent = ({ conversations, conversationsVisible, onToggleConversations }) => (
   <DashBoardContainer>
-    <Sidebar as={Segment} animation='push' direction='right' visible={conversationsVisible} icon='labeled' vertical>
+    <Sidebar as={Segment} animation="push" direction="right" visible={conversationsVisible} icon="labeled" vertical>
       <ConversationListContainer conversations={conversations} visible={conversationsVisible}/>
     </Sidebar>
     <ContentContainer>

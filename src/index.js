@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import store from './store';
 import createBrowserHistory from 'history/createBrowserHistory';
 import 'semantic-ui-css/semantic.min.css';
+import 'moment-timezone';
 
 var history = createBrowserHistory();
 

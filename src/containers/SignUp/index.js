@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { GENDER_OPTIONS } from '../../types/authentication';
 import SignUpComponent from '../../components/SignUp';
 import { signUp } from '../../actions/authentication';
 
@@ -16,21 +17,10 @@ class SignUpContainer extends Component {
     dispatch(signUp(values));
   }
 
-   render () {
-     const {error} = this.props;
-     return (
-       <div>
-         <span>{error}</span>
-         <SignUpComponent
-           onSubmit={this.onSubmit}
-         />
-         <Link to="/">
-          <button>Go Home</button>
-         </Link>
-         {error && <p>Error registering</p>}
-       </div>
-     )
-   }
+  render () {
+    const {error} = this.props;
+    return <SignUpComponent onSubmit={this.onSubmit} genderOptions={GENDER_OPTIONS} error={error}/>
+  }
 }
 
 const mapStateToProps = state => {

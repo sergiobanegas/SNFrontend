@@ -1,15 +1,15 @@
 import React from 'react';
+import Moment from 'react-moment';
 import { List } from 'semantic-ui-react';
-import moment from 'moment';
 
 const ConversationListComponent = ({conversations}) => (
-  <List divided verticalAlign='middle'>
+  <List divided verticalAlign="middle">
     {
       conversations.map(conversation => {
         return (
           <List.Item key={conversation._id}>
             <List.Content>
-              <List.Header as='a'>
+              <List.Header as="a">
               {
                 conversation.members.map(member => {
                   return <span key={member._id}>{member.name}</span>
@@ -17,8 +17,8 @@ const ConversationListComponent = ({conversations}) => (
               }
               </List.Header>
             </List.Content>
-            <List.Content floated='right'>
-              {moment(conversation.createdAt).fromNow()}
+            <List.Content floated="right">
+              <Moment date={conversation.createdAt} fromNow/>
             </List.Content>
           </List.Item>
         )

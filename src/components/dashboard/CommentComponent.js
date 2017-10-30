@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import Moment from 'react-moment';
 import { Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentContainer from '../../containers/Dashboard/CommentContainer';
 
@@ -7,14 +7,14 @@ const CommentComponent = ({ comment, replies, active, onToggleCommentReplies, on
   <Comment key={comment._id}>
     <Comment.Avatar src={comment.author.avatar} />
     <Comment.Content>
-      <Comment.Author as='a'>{comment.author.name}</Comment.Author>
+      <Comment.Author as="a">{comment.author.name}</Comment.Author>
       <Comment.Metadata>
-        <div>{moment(comment.createdAt).fromNow()}</div>
+        <Moment date={comment.createdAt} fromNow/>
       </Comment.Metadata>
         <Comment.Text>{comment.content}</Comment.Text>
        <Comment.Actions>
           <Comment.Action onClick={onCommentLiked}>
-            <Icon color='green' name='thumbs outline up'/>
+            <Icon color="green" name="thumbs outline up"/>
             Like ({likes.length})
           </Comment.Action>
          <Comment.Action>Reply</Comment.Action>
@@ -25,7 +25,7 @@ const CommentComponent = ({ comment, replies, active, onToggleCommentReplies, on
          <div>
            <Accordion>
              <Accordion.Title active={active} onClick={onToggleCommentReplies}>
-               <Icon name='dropdown'/>
+               <Icon name="dropdown"/>
                View comments ({comment.replies.length})
              </Accordion.Title>
            </Accordion>

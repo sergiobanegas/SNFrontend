@@ -4,6 +4,7 @@ import { Form, Select } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 
 export default class FormInput extends Component {
+  
   render () {
     const {type, name, label, options} = this.props;
     switch(type) {
@@ -26,26 +27,27 @@ FormInput.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,
-  options: PropTypes.array,
+  options: PropTypes.array
 };
 
 const TextFormField = props => (
  <Form.Field>
-   <Form.Input
-             value={props.input.value}
-             type={props.type}
-             onChange={(param,data) => props.input.onChange(data.value)}
-             placeholder={props.label}
+    <Form.Input
+      value={props.input.value}
+      type={props.type}
+      onChange={(param,data) => props.input.onChange(data.value)}
+      placeholder={props.label}
     />
   </Form.Field>
 );
 
 const DropdownFormField = props => (
  <Form.Field>
-   <Select options={props.options}
-             value={props.input.value}
-             onChange={(param,data) => props.input.onChange(data.value)}
-             placeholder={props.label}
+    <Select
+      options={props.options}
+      value={props.input.value}
+      onChange={(param,data) => props.input.onChange(data.value)}
+      placeholder={props.label}
     />
   </Form.Field>
 )

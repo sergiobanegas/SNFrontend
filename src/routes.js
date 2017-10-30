@@ -31,6 +31,10 @@ let checkAuthorization = (WrappedComponent, authNeeded) => {
   } else {
     return class extends React.Component {
 
+      componentWillMount(){
+        existsUserToken() && this.props.history.replace("/");
+      }
+
       render() {
         return <WrappedComponent {...this.props} />
       }

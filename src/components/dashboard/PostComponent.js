@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import { Card, Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
+import Moment from 'react-moment';
+import { Card, Accordion, Icon, Comment, Loader, Container, Image } from 'semantic-ui-react';
 import CommentContainer from '../../containers/Dashboard/CommentContainer';
 
 const PostComponent = ({post, comments, active, onTogglePostComments, loadingComments}) => (
@@ -11,16 +11,18 @@ const PostComponent = ({post, comments, active, onTogglePostComments, loadingCom
       </Card.Header>
       <Card.Meta>
         {post.author.name}
-        <div className="right floated">
-          <img className="ui avatar image" src={post.author.avatar} alt={post.author.name}/>
-        </div>
+        <Container textAlign="right">
+          <Image avatar src={post.author.avatar} alt={post.author.name}/>
+        </Container>
       </Card.Meta>
       <Card.Description>
         {post.content}
       </Card.Description>
     </Card.Content>
-    <div className="extra content">
-      <span className="right floated time">{moment(post.createdAt).fromNow()}</span>
+    <Card.Content extra>
+      <Container textAlign="right">
+        <Moment date={post.createdAt} fromNow/>
+      </Container>
       <Accordion>
         <Accordion.Title active={active} onClick={onTogglePostComments}>
           <Icon name="dropdown" />
@@ -31,15 +33,14 @@ const PostComponent = ({post, comments, active, onTogglePostComments, loadingCom
             <Loader active={loadingComments} inline="centered"/>
               {
                 comments.map(comment => {
-                  return <CommentContainer key={comment._id} comment={comment}/>
+                   return <CommentContainer key={comment._id} comment={comment}/>
                 })
               }
           </Comment.Group>
         </Accordion.Content>
       </Accordion>
-    </div>
+    </Card.Content>
   </Card>
 );
 
 export default PostComponent;
-
