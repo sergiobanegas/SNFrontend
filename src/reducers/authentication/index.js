@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_ERROR, REGISTER_SUCCESS, LOGOUT } from '../../types/authentication';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT } from '../../types/authentication';
 
 const initState = {
  message: "",
@@ -8,14 +8,14 @@ const initState = {
 }
 export default (state = initState, action) => {
 switch(action.type) {
- case LOGIN_ERROR:
- return {...state, error: action.error, logged: false};
- case LOGIN_SUCCESS:
+ case SIGN_IN_SUCCESS:
  return {...state, error: null, logged: true};
- case REGISTER_ERROR:
+ case SIGN_IN_ERROR:
  return {...state, error: action.error, logged: false};
- case REGISTER_SUCCESS:
+ case SIGN_UP_SUCCESS:
  return {...state, error: null, logged: true};
+ case SIGN_UP_ERROR:
+ return {...state, error: action.error, logged: false};
  case LOGOUT:
  return {...state, error: null, logged: false};
  case LOCATION_CHANGE: {

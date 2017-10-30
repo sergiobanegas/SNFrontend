@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import RegisterForm from '../../components/authentication/register/RegisterForm';
-import { signUp } from '../../actions/authentication/authentication';
+import SignUpComponent from '../../components/SignUp';
+import { signUp } from '../../actions/authentication';
 
 class SignUpContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   onSubmit(values) {
     const { dispatch } = this.props;
@@ -16,7 +21,7 @@ class SignUpContainer extends Component {
      return (
        <div>
          <span>{error}</span>
-         <RegisterForm
+         <SignUpComponent
            onSubmit={this.onSubmit}
          />
          <Link to="/">

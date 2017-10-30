@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import { reducer as form } from 'redux-form';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 
-import authenticationReducer from './reducers/authentication/authenticationReducer';
+import authenticationReducer from './reducers/authentication';
 import dashboardReducer from './reducers/dashboard';
 
 let store = function(history) {

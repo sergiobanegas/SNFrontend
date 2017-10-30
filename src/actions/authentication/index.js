@@ -1,17 +1,17 @@
 import { push } from 'react-router-redux';
-import { LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_ERROR, REGISTER_SUCCESS, LOGOUT } from '../../types/authentication';
-import { URI_LOGIN, URI_SIGNUP, USER_TOKEN } from '../../config';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT } from '../../types/authentication';
+import { URI_SIGN_IN, URI_SIGN_UP } from '../../config';
 import { post } from '../../services/http';
 import { setUserToken, removeUserToken } from '../../services/storage';
 
-export const login = (email, password) => {
+export const signIn = (email, password) => {
   return dispatch => {
-    post(URI_LOGIN, {email: email, password: password}, null).then(response => {
+    post(URI_SIGN_IN, {email: email, password: password}, null).then(response => {
       setUserToken(response.token);
-      dispatch({type: LOGIN_SUCCESS});
+      dispatch({type: SIGN_IN_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {
-      dispatch({type: LOGIN_ERROR, error: error.message});
+      dispatch({type: SIGN_IN_ERROR, error: error.message});
     });
   }
 }
@@ -24,20 +24,19 @@ export const logout = () => {
   }
 }
 
-export const signup = (values) => {
+export const signUp = (values) => {
   return dispatch => {
-    post(URI_SIGNUP, {
+    post(URI_SIGN_UP, {
       email: values.email,
       password: values.password,
       name: values.name,
       gender: values.gender
     }, null).then(response => {
       setUserToken(response.token);
-      dispatch({type: REGISTER_SUCCESS});
+      dispatch({type: SIGN_UP_SUCCESS});
       dispatch(push('/'));
     }).catch(error => {
-      dispatch({type: REGISTER_ERROR, error: error.message});
+      dispatch({type: SIGN_UP_ERROR, error: error.message});
     });
   }
-
 }

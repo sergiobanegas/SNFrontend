@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import { Button, Form, Segment, Message } from 'semantic-ui-react';
-import FormInput from '../../../components/utils/FormInput';
+import FormInput from '../../components/utils/FormInput';
 import styled from 'styled-components';
 
 const Title = styled.h1`
   color: ${props => props.color ||  'goldenrod'}
 `;
 
-let RegisterForm = props => {
+let SignUpComponent = props => {
   const { handleSubmit, isIncomplete, differentPasswords } = props;
   const passwordErrorText = "Passwords don't match";
   var genderOptions = [
@@ -43,19 +43,19 @@ let RegisterForm = props => {
   )
 }
 
-RegisterForm = reduxForm({
-form: 'register-form'
-})(RegisterForm)
+SignUpComponent = reduxForm({
+form: 'sign-up-component'
+})(SignUpComponent)
 
-const selector = formValueSelector('register-form');
+const selector = formValueSelector('sign-up-component');
 
-RegisterForm = connect(state => {
+SignUpComponent = connect(state => {
   const isIncomplete = !selector(state, 'email') || !selector(state, 'name') || !selector(state, 'password') || !selector(state, 'passwordConfirmation') || !selector(state, 'gender');
   const differentPasswords = (selector(state, 'password') && selector(state, 'passwordConfirmation')) && selector(state, 'password') !== selector(state, 'passwordConfirmation');
   return {
     isIncomplete,
     differentPasswords
   }
-})(RegisterForm);
+})(SignUpComponent);
 
-export default RegisterForm;
+export default SignUpComponent;

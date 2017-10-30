@@ -2,15 +2,15 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { existsUserToken } from './services/storage';
 import DashBoardContainer from './containers/Dashboard';
-import LoginContainer from './containers/Login';
-import SignUpContainer from './containers/Register';
+import SignInContainer from './containers/SignIn';
+import SignUpContainer from './containers/SignUp';
 
 export default () => {
  return (
    <div>
      <Route exact path="/" component={checkAuthorization(DashBoardContainer, true)} />
-     <Route path="/login" component={checkAuthorization(LoginContainer, false)} />
-     <Route path="/register" component={checkAuthorization(SignUpContainer, false)} />
+     <Route path="/login" component={checkAuthorization(SignInContainer, false)} />
+     <Route path="/sign-up" component={checkAuthorization(SignUpContainer, false)} />
    </div>
    )
 }
