@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import App from './containers/App/App';
+import DashBoardContainer from './containers/Dashboard';
 import Login from './containers/authentication/Login';
 import Register from './containers/authentication/Register';
 
 export default () => {
  return (
    <div>
-       <Route exact path="/" component={checkAuthorization(App, true)} />
+       <Route exact path="/" component={checkAuthorization(DashBoardContainer, true)} />
        <Route path="/login" component={checkAuthorization(Login, false)} />
        <Route path="/register" component={checkAuthorization(Register, false)} />
    </div>

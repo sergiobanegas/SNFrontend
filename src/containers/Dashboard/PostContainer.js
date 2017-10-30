@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {togglePostComments} from '../../../actions/dashboard/comments';
-import PostComponent from '../../../components/Dashboard/PostComponent';
+import {togglePostComments} from '../../actions/dashboard/comments';
+import PostComponent from '../../components/Dashboard/PostComponent';
 
 class PostContainer extends Component {
 

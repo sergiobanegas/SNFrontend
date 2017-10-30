@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {logout} from '../../../actions/authentication/authentication';
-import MenuComponent from '../../../components/Menu';
+import {logout} from '../../actions/authentication/authentication';
+import MenuComponent from '../../components/Menu';
 
 class MenuContainer extends Component {
 
@@ -16,8 +16,7 @@ class MenuContainer extends Component {
   }
 
   render () {
-    const {logged} = this.props;
-    const activeItem = "home";
+    const {logged, activeItem} = this.props;
     return <MenuComponent logged={logged} onLogout={this.logout} activeItem={activeItem}/>;
   }
 

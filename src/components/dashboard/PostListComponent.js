@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Grid } from 'semantic-ui-react';
-import PostContainer from '../../containers/App/Dashboard/PostContainer';
+import PostContainer from '../../containers/Dashboard/PostContainer';
 
 export default class PostListComponent extends Component {
 

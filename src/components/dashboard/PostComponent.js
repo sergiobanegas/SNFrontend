@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import { Card, Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
-import CommentContainer from '../../containers/App/Dashboard/CommentContainer';
+import CommentContainer from '../../containers/Dashboard/CommentContainer';
 
 export default class PostComponent extends Component {
 

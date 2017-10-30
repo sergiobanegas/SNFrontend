@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 import {logout} from '../../actions/authentication/authentication';
 import { Dropdown, Menu } from 'semantic-ui-react';
+import {ACTIVE_ITEMS} from '../../types/menu';
 
 export default class MenuComponent extends Component {
-  logout(){
-    const { dispatch } = this.props;
-    localStorage.removeItem("user_token");
-    dispatch(logout());
-  }
+
   render () {
-    const {onLogout} = this.props;
-    const activeItem = "home";
+    const {onLogout, activeItem} = this.props;
     return (
-      <Menu className="ui blue inverted">
-        <Menu.Item name="home" active={activeItem === "home"}/>
-        <Menu.Item name="messages" active={activeItem === "messages"}/>
+      <Menu inverted color="blue">
+        <Menu.Item name="home" active={activeItem === ACTIVE_ITEMS.HOME}/>
+        <Menu.Item name="messages" active={activeItem === ACTIVE_ITEMS.MESSAGES}/>
         <Menu.Menu position="right">
           <Dropdown item text="Language">
             <Dropdown.Menu>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getPosts} from '../../../actions/dashboard/posts';
-import PostListComponent from '../../../components/Dashboard/PostListComponent';
+import {getPosts} from '../../actions/dashboard/posts';
+import PostListComponent from '../../components/Dashboard/PostListComponent';
 
 class PostListContainer extends Component {
 

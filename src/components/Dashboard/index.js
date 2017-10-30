@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Sidebar, Segment } from 'semantic-ui-react';
-import PostListContainer from '../../containers/App/Dashboard/PostListContainer';
-import ConversationListContainer from '../../containers/App/Dashboard/ConversationListContainer';
+import PostListContainer from '../../containers/Dashboard/PostListContainer';
+import ConversationListContainer from '../../containers/Dashboard/ConversationListContainer';
 import ConversationListToggleComponent from './ConversationListToggleComponent';
 import styled from 'styled-components';
 

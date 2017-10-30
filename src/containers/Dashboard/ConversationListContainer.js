@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ConversationListComponent from '../../../components/Dashboard/ConversationListComponent';
+import ConversationListComponent from '../../components/Dashboard/ConversationListComponent';
 
 class ConversationListContainer extends Component {
   render () {

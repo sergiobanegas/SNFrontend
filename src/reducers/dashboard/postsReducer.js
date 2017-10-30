@@ -1,6 +1,5 @@
-import { REQUEST_POSTS } from '../../types/dashboard';
-import { REQUEST_POSTS_SUCCESS } from '../../types/dashboard';
-import { REQUEST_POSTS_ERROR } from '../../types/dashboard';
+import { REQUEST_POSTS, REQUEST_POSTS_SUCCESS, REQUEST_POSTS_ERROR } from '../../types/dashboard';
+
 const initState = {
  posts: [],
  errorPosts: null

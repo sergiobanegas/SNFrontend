@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getUserConversations, toggleConversations} from '../../../actions/dashboard/conversations';
-import DashboardComponent from '../../../components/Dashboard';
+import {ACTIVE_ITEMS} from '../../types/menu';
+import {getUserConversations, toggleConversations} from '../../actions/dashboard/conversations';
+import MenuContainer from '../Menu';
+import DashboardComponent from '../../components/Dashboard';
 
 class DashboardContainer extends Component {
 
@@ -24,11 +26,14 @@ class DashboardContainer extends Component {
   render () {
     const { conversations, conversationsVisible } = this.props;
     return (
-      <DashboardComponent
-        conversations={conversations}
-        conversationsVisible={conversationsVisible}
-        onToggleConversations={this.onToggleConversations}
+      <div>
+        <MenuContainer activeItem={ACTIVE_ITEMS.HOME}/>
+        <DashboardComponent
+          conversations={conversations}
+          conversationsVisible={conversationsVisible}
+          onToggleConversations={this.onToggleConversations}
         />
+      </div>
     );
   }
 
