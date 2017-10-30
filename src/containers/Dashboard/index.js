@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {ACTIVE_ITEMS} from '../../types/menu';
-import {getUserConversations, toggleConversations} from '../../actions/dashboard/conversations';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { ACTIVE_ITEMS } from '../../types/menu';
+import { getUserConversations, toggleConversations } from '../../actions/dashboard/conversations';
 import MenuContainer from '../Menu';
 import DashboardComponent from '../../components/Dashboard';
 

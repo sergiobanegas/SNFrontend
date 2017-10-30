@@ -1,4 +1,4 @@
-import { LIKE_SUCCESS, LIKE_ERROR} from '../../types/dashboard';
+import { LIKE_SUCCESS, LIKE_ERROR } from '../../types/dashboard';
 
 const initState = {
  errorLike: false

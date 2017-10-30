@@ -2,7 +2,7 @@ import { getUserToken } from './storage';
 
 var axios = require('axios');
 
-export const post = function(endpoint, body, params){
+export const post = (endpoint, body, params) => {
   return new Promise((resolve, reject) => {
     let token = getUserToken();
     let headers = token ? { Authorization: "JWT " + token } : {};
@@ -18,7 +18,7 @@ export const post = function(endpoint, body, params){
   });
 }
 
-export const get = function(endpoint, body, params){
+export const get = (endpoint, body, params) => {
   return new Promise((resolve, reject) => {
     let headers = { Authorization: "JWT " + getUserToken() };
     axios.get(endpoint, {headers: headers}).then(response => {

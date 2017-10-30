@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {getPosts} from '../../actions/dashboard/posts';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getPosts } from '../../actions/dashboard/posts';
 import PostListComponent from '../../components/Dashboard/PostListComponent';
 
 class PostListContainer extends Component {
@@ -12,9 +12,7 @@ class PostListContainer extends Component {
 
   render () {
     const { posts } = this.props;
-    return (
-      <PostListComponent posts={posts}/>
-    );
+    return <PostListComponent posts={posts}/>;
   }
 
 }

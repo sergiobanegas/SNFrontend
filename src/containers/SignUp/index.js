@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import RegisterForm from '../../components/authentication/register/RegisterForm';
-import {signup} from '../../actions/authentication/authentication';
+import { signUp } from '../../actions/authentication/authentication';
 
-class Register extends Component {
-  _onSubmit = (values) => {
+class SignUpContainer extends Component {
+
+  onSubmit(values) {
     const { dispatch } = this.props;
-    dispatch(signup(values));
+    dispatch(signUp(values));
   }
 
    render () {
@@ -16,7 +17,7 @@ class Register extends Component {
        <div>
          <span>{error}</span>
          <RegisterForm
-           onSubmit={this._onSubmit}
+           onSubmit={this.onSubmit}
          />
          <Link to="/">
           <button>Go Home</button>
@@ -26,6 +27,7 @@ class Register extends Component {
      )
    }
 }
+
 const mapStateToProps = state => {
   return {
     error : state.authenticationReducer.error,
@@ -42,4 +44,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Register));
+)(SignUpContainer));

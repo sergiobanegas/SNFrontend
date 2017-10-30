@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Sidebar, Segment } from 'semantic-ui-react';
 import PostListContainer from '../../containers/Dashboard/PostListContainer';
 import ConversationListContainer from '../../containers/Dashboard/ConversationListContainer';

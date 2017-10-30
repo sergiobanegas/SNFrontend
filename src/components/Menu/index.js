@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {logout} from '../../actions/authentication/authentication';
+import React, { Component } from 'react';
+import { logout } from '../../actions/authentication/authentication';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import {ACTIVE_ITEMS} from '../../types/menu';
+import { ACTIVE_ITEMS } from '../../types/menu';
 
 export default class MenuComponent extends Component {
 

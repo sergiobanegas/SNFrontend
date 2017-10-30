@@ -1,11 +1,12 @@
   import React, { Component } from 'react';
-  import {withRouter} from 'react-router-dom';
-  import {connect} from 'react-redux';
+  import { withRouter } from 'react-router-dom';
+  import { connect } from 'react-redux';
   import LoginForm from '../../components/authentication/login/LoginForm';
-  import {login} from '../../actions/authentication/authentication';
+  import { login } from '../../actions/authentication/authentication';
 
-  class Login extends Component {
-    _onSubmit = (values) => {
+  class LoginContainer extends Component {
+
+    onSubmit(values) {
       const { dispatch } = this.props;
       dispatch(login(values.email, values.password));
     }
@@ -14,7 +15,7 @@
        const {error} = this.props;
        return (
          <div>
-           <LoginForm onSubmit={this._onSubmit} error={error}/>
+           <LoginForm onSubmit={this.onSubmit} error={error}/>
            {error && <p>{error}</p>}
          </div>
        )
@@ -36,4 +37,4 @@
   export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Login));
+  )(LoginContainer));

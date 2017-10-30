@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import { Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentContainer from '../../containers/Dashboard/CommentContainer';

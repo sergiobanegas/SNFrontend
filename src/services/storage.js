@@ -1,13 +1,17 @@
-import { USER_TOKEN} from '../config';
+import { USER_TOKEN } from '../config';
 
-export const getUserToken = function(){
-  return localStorage.getItem(USER_TOKEN);
+export const getUserToken = () => {
+	return localStorage.getItem(USER_TOKEN);
 }
 
-export const setUserToken = function(token){
-  return localStorage.setItem(USER_TOKEN, token);
+export const setUserToken = token => {
+	return localStorage.setItem(USER_TOKEN, token);
 }
 
-export const existsUserToken = function(){
-  return localStorage.getItem(USER_TOKEN) != null;
+export const existsUserToken = () => {
+	return localStorage.getItem(USER_TOKEN) != null;
+}
+
+export const removeUserToken = () => {
+	localStorage.removeItem(USER_TOKEN);
 }

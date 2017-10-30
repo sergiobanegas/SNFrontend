@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CommentComponent from '../../components/Dashboard/CommentComponent';
-import {toggleCommentReplies, likeComment} from '../../actions/dashboard/comments';
+import { toggleCommentReplies, likeComment } from '../../actions/dashboard/comments';
 
 class CommentContainer extends Component {
 
