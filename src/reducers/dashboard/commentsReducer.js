@@ -1,9 +1,10 @@
 import { TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR, TOGGLE_COMMENT_REPLIES,
-  GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR } from '../../types/dashboard';
+  GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR, NEW_COMMENT_SUCCESS, SHOW_NEW_COMMENT_FORM } from '../../types/dashboard';
 
 const initState = {
  activePostsIds: [],
  activeCommentsIds: [],
+ activeNewCommentParentId: null,
  comments: {},
  errorComments: null
 }
@@ -43,7 +44,12 @@ switch(action.type) {
   return Object.assign({}, state, {[action.commentId]: action.replies, errorComments: false});
  case GET_COMMENT_REPLIES_ERROR:
  return {...state, errorComments: true};
- default :
+ case SHOW_NEW_COMMENT_FORM:
+ return Object.assign({}, state, {activeNewCommentParentId: action.id});
+ case NEW_COMMENT_SUCCESS:
+ let parentId = action.comment.parent ? action.comment.parent : action.comment.post_id;
+ return Object.assign({}, state, {[action.parentId]: action.comment.parent || parentId});
+ default:
  return state
  }
 }

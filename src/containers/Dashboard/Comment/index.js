@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CommentComponent from '../../components/Dashboard/CommentComponent';
-import { toggleCommentReplies, likeComment } from '../../actions/dashboard/comments';
+import CommentComponent from '../../../components/Dashboard/Comment';
+import { toggleCommentReplies, likeComment, showNewCommentForm } from '../../../actions/dashboard/comments';
 
 class CommentContainer extends Component {
 
   constructor(props) {
     super(props);
     this.onToggleCommentReplies = this.onToggleCommentReplies.bind(this);
+    this.onCommentLiked = this.onCommentLiked.bind(this);
+    this.onOpenForm = this.onOpenForm.bind(this);
   }
 
   onToggleCommentReplies() {
@@ -20,8 +22,13 @@ class CommentContainer extends Component {
     dispatch(likeComment(comment._id));
   }
 
+  onOpenForm() {
+    const { dispatch, comment } = this.props;
+    dispatch(showNewCommentForm(comment._id));
+  }
+
   render () {
-    const { comment, replies, active, likes } = this.props;
+    const { comment, replies, active, likes, activeForm } = this.props;
     let loadingReplies = comment.replies.length > 0 && replies.length === 0;
     return (
       <CommentComponent
@@ -30,8 +37,10 @@ class CommentContainer extends Component {
         likes={likes}
         active={active}
         onToggleCommentReplies={this.onToggleCommentReplies}
-        onCommentLiked={this.onCommentLiked.bind(this)}
+        onCommentLiked={this.onCommentLiked}
         loadingReplies={loadingReplies}
+        activeForm={activeForm}
+        onOpenForm={this.onOpenForm}
       />
     );
   }
@@ -42,7 +51,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     active: state.dashboardReducer.commentsReducer.activeCommentsIds.indexOf(ownProps.comment._id) > -1,
     replies: state.dashboardReducer.commentsReducer[ownProps.comment._id] || [],
-    likes: state.dashboardReducer.likesReducer[ownProps.comment._id] || ownProps.comment.likes
+    likes: state.dashboardReducer.likesReducer[ownProps.comment._id] || ownProps.comment.likes,
+    activeForm: state.dashboardReducer.commentsReducer.activeNewCommentParentId === ownProps.comment._id
   }
 }
 

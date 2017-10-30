@@ -6,10 +6,10 @@ import { Field } from 'redux-form';
 export default class FormInput extends Component {
   
   render () {
-    const {type, name, label, options} = this.props;
+    const {type, name, label, options, width} = this.props;
     switch(type) {
       case "text":
-      return <Field name={name} component={ TextFormField} type={type} label={label}/>
+      return <Field name={name} component={ TextFormField} type={type} label={label} width={width}/>
       case "password":
       return <Field name={name} component={ TextFormField} type={type} label={label}/>
       case "email":
@@ -31,7 +31,7 @@ FormInput.propTypes = {
 };
 
 const TextFormField = props => (
- <Form.Field>
+ <Form.Field width={props.width}>
     <Form.Input
       value={props.input.value}
       type={props.type}

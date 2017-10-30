@@ -1,5 +1,5 @@
 import { TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR, TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS,
-  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR } from '../../types/dashboard';
+  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR, NEW_COMMENT_SUCCESS, NEW_COMMENT_ERROR, SHOW_NEW_COMMENT_FORM } from '../../types/dashboard';
 import { URI_POSTS, URI_COMMENTS, URI_LIKE } from '../../config';
 import { get, post } from '../../services/http';
 
@@ -32,5 +32,25 @@ export const likeComment = commentId => {
     }).catch(error => {
       dispatch({type: LIKE_ERROR, error: error.message});
     });
+  }
+}
+
+export const newComment = (content, postId, commentId) => {
+  return (dispatch, getState) => {
+     post(`${URI_COMMENTS}`, {
+      content: content,
+      post_id: postId,
+      parent: commentId
+     }, null).then(response => {
+      dispatch({type: NEW_COMMENT_SUCCESS, comment: response});
+    }).catch(error => {
+      dispatch({type: NEW_COMMENT_ERROR, error: error.message});
+    });
+  }
+}
+
+export const showNewCommentForm = id => {
+  return dispatch => {
+      dispatch({type: SHOW_NEW_COMMENT_FORM, id: id});
   }
 }

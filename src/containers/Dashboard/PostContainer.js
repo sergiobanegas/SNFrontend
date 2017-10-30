@@ -25,7 +25,7 @@ class PostContainer extends Component {
         comments={comments}
         onTogglePostComments={this.onTogglePostComments}
         loadingComments={loadingComments}
-        />
+      />
     );
   }
 

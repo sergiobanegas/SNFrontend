@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { Card, Accordion, Icon, Comment, Loader, Container, Image } from 'semantic-ui-react';
-import CommentContainer from '../../containers/Dashboard/CommentContainer';
+import CommentContainer from '../../containers/Dashboard/Comment/';
 
 const PostComponent = ({post, comments, active, onTogglePostComments, loadingComments}) => (
   <Card key={post._id} fluid>
