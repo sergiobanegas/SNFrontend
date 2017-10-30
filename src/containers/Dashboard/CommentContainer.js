@@ -22,8 +22,17 @@ class CommentContainer extends Component {
 
   render () {
     const { comment, replies, active, likes } = this.props;
+    let loadingReplies = comment.replies.length > 0 && replies.length === 0;
     return (
-      <CommentComponent comment={comment} replies={replies} likes={likes} active={active} onToggleCommentReplies={this.onToggleCommentReplies} onCommentLiked={this.onCommentLiked.bind(this)}/>
+      <CommentComponent
+        comment={comment}
+        replies={replies}
+        likes={likes}
+        active={active}
+        onToggleCommentReplies={this.onToggleCommentReplies}
+        onCommentLiked={this.onCommentLiked.bind(this)}
+        loadingReplies={loadingReplies}
+      />
     );
   }
 

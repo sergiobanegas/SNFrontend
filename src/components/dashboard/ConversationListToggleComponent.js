@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'semantic-ui-react';
 
-export default class ConversationListToggleComponent extends Component {
-  render () {
-    const { onToggle } = this.props;
-    return <Button primary circular icon="comments" floated='right' onClick={onToggle}/>;
-  }
+const ConversationListToggleComponent = ({onToggle}) => (
+	<Button primary circular icon="comments" floated='right' onClick={onToggle}/>
+);
 
-}
+export default ConversationListToggleComponent;

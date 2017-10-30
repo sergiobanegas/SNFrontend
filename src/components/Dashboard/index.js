@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Sidebar, Segment } from 'semantic-ui-react';
 import PostListContainer from '../../containers/Dashboard/PostListContainer';
 import ConversationListContainer from '../../containers/Dashboard/ConversationListContainer';
@@ -20,33 +20,20 @@ const ConversationsToggleButton = styled.div`
   z-index:100;
 `;
 
-export default class DashboardComponent extends Component {
+const DashboardComponent = ({ conversations, conversationsVisible, onToggleConversations }) => (
+  <DashBoardContainer>
+    <Sidebar as={Segment} animation='push' direction='right' visible={conversationsVisible} icon='labeled' vertical>
+      <ConversationListContainer conversations={conversations} visible={conversationsVisible}/>
+    </Sidebar>
+    <ContentContainer>
+      <div>
+        <ConversationsToggleButton>
+          <ConversationListToggleComponent onToggle={onToggleConversations}/>
+        </ConversationsToggleButton>
+        <PostListContainer/>
+      </div>
+    </ContentContainer>
+  </DashBoardContainer>
+);
 
-
-  render () {
-    const { conversations, conversationsVisible, onToggleConversations } = this.props;
-    return (
-      <DashBoardContainer>
-          <Sidebar
-            as={Segment}
-            animation='push'
-            direction='right'
-            visible={conversationsVisible}
-            icon='labeled'
-            vertical
-          >
-          <ConversationListContainer conversations={conversations} visible={conversationsVisible}/>
-          </Sidebar>
-          <ContentContainer>
-            <div>
-            <ConversationsToggleButton>
-              <ConversationListToggleComponent onToggle={onToggleConversations}/>
-            </ConversationsToggleButton>
-            <PostListContainer/>
-            </div>
-          </ContentContainer>
-        </DashBoardContainer>
-    );
-  }
-
-}
+export default DashboardComponent;
