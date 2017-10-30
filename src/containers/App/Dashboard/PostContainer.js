@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {togglePostComments} from '../../../actions/dashboard/comments';
 import PostComponent from '../../../components/Dashboard/PostComponent';
 
 class PostContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onTogglePostComments = this.onTogglePostComments.bind(this);
+  }
 
   onTogglePostComments() {
     const { dispatch, post } = this.props;
@@ -19,7 +23,7 @@ class PostContainer extends Component {
         post={post}
         active={active}
         comments={comments}
-        onTogglePostComments={this.onTogglePostComments.bind(this)}
+        onTogglePostComments={this.onTogglePostComments}
         loadingComments={loadingComments}
         />
     );
@@ -40,7 +44,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostContainer));
+)(PostContainer);

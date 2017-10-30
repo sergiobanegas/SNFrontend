@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import CommentComponent from '../../../components/Dashboard/CommentComponent';
 import {toggleCommentReplies, likeComment} from '../../../actions/dashboard/comments';
 
 class CommentContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onToggleCommentReplies = this.onToggleCommentReplies.bind(this);
+  }
 
   onToggleCommentReplies() {
     const { dispatch, comment } = this.props;
@@ -19,7 +23,7 @@ class CommentContainer extends Component {
   render () {
     const { comment, replies, active, likes } = this.props;
     return (
-      <CommentComponent comment={comment} replies={replies} likes={likes} active={active} onToggleCommentReplies={this.onToggleCommentReplies.bind(this)} onCommentLiked={this.onCommentLiked.bind(this)}/>
+      <CommentComponent comment={comment} replies={replies} likes={likes} active={active} onToggleCommentReplies={this.onToggleCommentReplies} onCommentLiked={this.onCommentLiked.bind(this)}/>
     );
   }
 
@@ -39,7 +43,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CommentContainer));
+)(CommentContainer);

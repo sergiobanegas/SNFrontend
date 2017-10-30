@@ -4,7 +4,12 @@ import {withRouter} from 'react-router-dom';
 import {getUserConversations, toggleConversations} from '../../../actions/dashboard/conversations';
 import DashboardComponent from '../../../components/Dashboard';
 
-class Dashboard extends Component {
+class DashboardContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onToggleConversations = this.onToggleConversations.bind(this);
+  }
 
   componentWillMount() {
     const { dispatch } = this.props;
@@ -22,7 +27,7 @@ class Dashboard extends Component {
       <DashboardComponent
         conversations={conversations}
         conversationsVisible={conversationsVisible}
-        onToggleConversations={this.onToggleConversations.bind(this)}
+        onToggleConversations={this.onToggleConversations}
         />
     );
   }
@@ -44,4 +49,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard));
+)(DashboardContainer));

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import Menu from './menu/Menu';
-import Dashboard from './Dashboard';
+import MenuContainer from './Menu';
+import DashboardContainer from './Dashboard';
 
 export default class App extends Component {
   render () {
     return (
       <div>
-        <Menu/>
-        <Dashboard/>
+        <MenuContainer/>
+        <DashboardContainer/>
       </div>
     )
   }

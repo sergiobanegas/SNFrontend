@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {getPosts} from '../../../actions/dashboard/posts';
 import PostListComponent from '../../../components/Dashboard/PostListComponent';
 
@@ -32,7 +31,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostListContainer));
+)(PostListContainer);

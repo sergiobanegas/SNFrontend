@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {logout} from '../../../actions/authentication/authentication';
-import MainMenu from '../../../components/menu/MainMenu';
+import MenuComponent from '../../../components/Menu';
 
-class Menu extends Component {
+class MenuContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
   logout(){
     const { dispatch } = this.props;
     dispatch(logout());
   }
+
   render () {
     const {logged} = this.props;
     const activeItem = "home";
-    return (
-        <MainMenu logged={logged} onLogout={this.logout.bind(this)} activeItem={activeItem}/>
-    );
+    return <MenuComponent logged={logged} onLogout={this.logout} activeItem={activeItem}/>;
   }
 
 }
@@ -31,7 +35,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Menu));
+  )(MenuContainer);
