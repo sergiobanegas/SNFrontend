@@ -49,7 +49,6 @@ export const newComment = (content, postId, commentId) => {
       parent: commentId
      }, null).then(response => {
       let parentId = commentId !== null ? commentId : postId;
-      debugger;
       let shouldFetch = getState().dashboardReducer.commentsReducer.activeCommentsIds.indexOf(parentId) === -1;
       dispatch({type: NEW_COMMENT_SUCCESS, comment: response, parentId: parentId});
       shouldFetch && dispatch(getCommentReplies(parentId));
