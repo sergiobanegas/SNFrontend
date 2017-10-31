@@ -17,8 +17,14 @@ export const togglePostComments = postId => {
 export const toggleCommentReplies = commentId => {
   return (dispatch, getState) => {
     dispatch({type: TOGGLE_COMMENT_REPLIES, commentId: commentId});
-    get(`${URI_COMMENTS}/${commentId}`, null, null).then(response => {
-      dispatch({type: GET_COMMENT_REPLIES_SUCCESS, replies: response.replies, commentId: commentId});
+    dispatch(getCommentReplies(commentId));
+  }
+}
+
+const getCommentReplies = id => {
+  return (dispatch, getState) => {
+    get(`${URI_COMMENTS}/${id}`, null, null).then(response => {
+      dispatch({type: GET_COMMENT_REPLIES_SUCCESS, replies: response.replies, commentId: id});
     }).catch(error => {
       dispatch({type: GET_COMMENT_REPLIES_ERROR, error: error.message});
     });
@@ -42,7 +48,11 @@ export const newComment = (content, postId, commentId) => {
       post_id: postId,
       parent: commentId
      }, null).then(response => {
-      dispatch({type: NEW_COMMENT_SUCCESS, comment: response});
+      let parentId = commentId !== null ? commentId : postId;
+      debugger;
+      let shouldFetch = getState().dashboardReducer.commentsReducer.activeCommentsIds.indexOf(parentId) === -1;
+      dispatch({type: NEW_COMMENT_SUCCESS, comment: response, parentId: parentId});
+      shouldFetch && dispatch(getCommentReplies(parentId));
     }).catch(error => {
       dispatch({type: NEW_COMMENT_ERROR, error: error.message});
     });

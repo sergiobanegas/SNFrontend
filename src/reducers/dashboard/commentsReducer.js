@@ -31,11 +31,11 @@ switch(action.type) {
    let activeComments = state.activeCommentsIds.slice();
    let commentIndex = activeComments.indexOf(action.commentId);
    if (commentIndex > -1) {
-       if (commentIndex === activeComments.length -1) {
-         activeComments.splice(commentIndex, 1);
-       } else {
-         activeComments.splice(commentIndex, activeComments.length -1);
-       }
+     if (commentIndex === activeComments.length -1) {
+       activeComments.splice(commentIndex, 1);
+     } else {
+       activeComments.splice(commentIndex, activeComments.length -1);
+     }
    } else {
      activeComments.push(action.commentId);
    }
@@ -47,8 +47,15 @@ switch(action.type) {
  case SHOW_NEW_COMMENT_FORM:
  return Object.assign({}, state, {activeNewCommentParentId: action.id});
  case NEW_COMMENT_SUCCESS:
- let parentId = action.comment.parent ? action.comment.parent : action.comment.post_id;
- return Object.assign({}, state, {[action.parentId]: action.comment.parent || parentId});
+ let comments = [];
+ if (state[action.parentId]) {
+   comments = state[action.parentId].slice();
+ }
+ comments.push(action.comment);
+ let activeComments2 = state.activeCommentsIds.slice();
+ let commentIndex2 = activeComments2.indexOf(action.parentId);
+ commentIndex2 === -1 && activeComments2.push(action.parentId);
+ return Object.assign({}, state, {[action.parentId]: comments, activeCommentsIds: activeComments2});
  default:
  return state
  }
