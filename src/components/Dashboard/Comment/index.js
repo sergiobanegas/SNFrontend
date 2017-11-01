@@ -4,7 +4,7 @@ import { Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentContainer from '../../../containers/Dashboard/Comment';
 import NewCommentContainer from '../../../containers/Dashboard/Comment/NewComment';
 
-const CommentComponent = ({ comment, replies, active, onToggleCommentReplies, onCommentLiked, likes, loadingReplies, onOpenForm, activeForm }) => (
+const CommentComponent = ({ comment, replies, active, numberOfReplies, onToggleCommentReplies, onCommentLiked, likes, loadingReplies, onOpenForm, activeForm }) => (
   <Comment key={comment._id}>
     <Comment.Avatar src={comment.author.avatar} />
     <Comment.Content>
@@ -27,7 +27,7 @@ const CommentComponent = ({ comment, replies, active, onToggleCommentReplies, on
            <Accordion>
              <Accordion.Title active={active} onClick={onToggleCommentReplies}>
                <Icon name="dropdown"/>
-               View comments ({comment.replies.length})
+               View comments ({numberOfReplies})
              </Accordion.Title>
            </Accordion>
            <Comment.Group>

@@ -30,6 +30,7 @@ class CommentContainer extends Component {
   render () {
     const { comment, replies, active, likes, activeForm } = this.props;
     let loadingReplies = comment.replies.length > 0 && replies.length === 0;
+    let numberOfReplies = replies.length > 0 ? replies.length : comment.replies.length;
     return (
       <CommentComponent
         comment={comment}
@@ -39,6 +40,7 @@ class CommentContainer extends Component {
         onToggleCommentReplies={this.onToggleCommentReplies}
         onCommentLiked={this.onCommentLiked}
         loadingReplies={loadingReplies}
+        numberOfReplies={numberOfReplies}
         activeForm={activeForm}
         onOpenForm={this.onOpenForm}
       />
