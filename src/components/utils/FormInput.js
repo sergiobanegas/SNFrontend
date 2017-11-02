@@ -4,7 +4,7 @@ import { Form, Select } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 
 export default class FormInput extends Component {
-  
+
   render () {
     const {type, name, label, options, width} = this.props;
     switch(type) {

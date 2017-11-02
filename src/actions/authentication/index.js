@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT } from '../../types/authentication';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT, SET_AUTH_FORM_FIELD } from '../../types/authentication';
 import { URI_SIGN_IN, URI_SIGN_UP } from '../../config';
 import { post } from '../../services/http';
 import { setUserToken, removeUserToken } from '../../services/storage';
@@ -38,5 +38,11 @@ export const signUp = (values) => {
     }).catch(error => {
       dispatch({type: SIGN_UP_ERROR, error: error.message});
     });
+  }
+}
+
+export const setFormFieldValue = (field, value) => {
+  return dispatch => {
+    dispatch({type: SET_AUTH_FORM_FIELD, field: field, value: value});
   }
 }

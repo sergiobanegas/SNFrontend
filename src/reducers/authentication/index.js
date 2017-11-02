@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT } from '../../types/authentication';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT, SET_AUTH_FORM_FIELD } from '../../types/authentication';
 
 const initState = {
  message: "",
@@ -18,6 +18,8 @@ switch(action.type) {
  return {...state, error: action.error, logged: false};
  case LOGOUT:
  return {...state, error: null, logged: false};
+ case SET_AUTH_FORM_FIELD:
+ return Object.assign({}, state, {[action.field]: action.value});
  case LOCATION_CHANGE: {
    return initState;
  }
