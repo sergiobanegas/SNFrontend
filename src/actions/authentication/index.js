@@ -26,7 +26,7 @@ export const logout = () => {
 
 export const signUp = (fields) => {
   return dispatch => {
-    if (fields.password != fields.passwordConfirmation) {
+    if (fields.password !== fields.passwordConfirmation) {
       dispatch({type: SIGN_UP_ERROR, error: "Password not matching"});
     } else {
       post(URI_SIGN_UP, {

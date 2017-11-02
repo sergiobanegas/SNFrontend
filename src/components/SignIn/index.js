@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { Button, Form, Segment, Divider, Icon, Grid, Message } from 'semantic-ui-react';
-import FormInput from '../../components/utils/FormInput';
 import styled from 'styled-components';
 
 const Title = styled.h1`

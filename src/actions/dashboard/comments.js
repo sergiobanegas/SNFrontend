@@ -1,5 +1,5 @@
 import { TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR, TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS,
-  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR, NEW_COMMENT_SUCCESS, NEW_COMMENT_ERROR, SHOW_NEW_COMMENT_FORM } from '../../types/dashboard';
+  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR, NEW_COMMENT_SUCCESS, NEW_COMMENT_ERROR, SHOW_NEW_COMMENT_FORM, SET_NEW_COMMENT_CONTENT, COMMENT_UPDATED } from '../../types/dashboard';
 import { URI_POSTS, URI_COMMENTS, URI_LIKE } from '../../config';
 import { get, post } from '../../services/http';
 
@@ -61,5 +61,17 @@ export const newComment = (content, postId, commentId) => {
 export const showNewCommentForm = id => {
   return dispatch => {
       dispatch({type: SHOW_NEW_COMMENT_FORM, id: id});
+  }
+}
+
+export const setNewCommentContent = content => {
+  return dispatch => {
+      dispatch({type: SET_NEW_COMMENT_CONTENT, content: content});
+  }
+}
+
+export const updateFormInput = () => {
+  return dispatch => {
+      dispatch({type: COMMENT_UPDATED});
   }
 }

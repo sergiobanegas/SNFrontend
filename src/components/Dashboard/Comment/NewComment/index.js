@@ -1,31 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, formValueSelector } from 'redux-form';
 import { Form, Segment } from 'semantic-ui-react';
-import FormInput from '../../../../components/utils/FormInput';
 
-let NewCommentComponent = ({ handleSubmit, isIncomplete }) => (
+let NewCommentComponent = ({onSubmit, onChange, isIncomplete}) => (
   <Segment>
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={onSubmit}>
       <Form.Group>
-        <FormInput name="content" type="text" label="..." width="15"/>
+        <Form.Field width={15}>
+          <Form.Input
+            type="content"
+            name="content"
+            label="Content"
+            onChange={e => onChange(e.target.value)}
+          />
+        </Form.Field>
         <Form.Button primary circular icon="send" disabled={isIncomplete}/>
       </Form.Group>
     </Form>
   </Segment>
 );
-
-NewCommentComponent = reduxForm({
-  form: "new-comment-component"
-})(NewCommentComponent);
-
-const selector = formValueSelector("new-comment-component");
-
-NewCommentComponent = connect(state => {
-  const isIncomplete = !selector(state, "content");
-  return {
-    isIncomplete
-  }
-})(NewCommentComponent);
 
 export default NewCommentComponent;

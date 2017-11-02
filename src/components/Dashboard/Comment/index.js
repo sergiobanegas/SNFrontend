@@ -1,6 +1,6 @@
 import React from 'react';
 import Moment from 'react-moment';
-import { Accordion, Icon, Comment, Loader } from 'semantic-ui-react';
+import { Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentContainer from '../../../containers/Dashboard/Comment';
 import NewCommentContainer from '../../../containers/Dashboard/Comment/NewComment';
 
@@ -19,30 +19,25 @@ const CommentComponent = ({ comment, replies, active, numberOfReplies, onToggleC
             Like {likes.length > 0 && <span>({likes.length})</span>}
           </Comment.Action>
          <Comment.Action onClick={onOpenForm}>Reply</Comment.Action>
+          {numberOfReplies > 0 && (
+           <Comment.Action onClick={onToggleCommentReplies}>
+              {active && <Icon color="blue" name="dropdown"/>}
+              {!active && <Icon color="blue" rotated="counterclockwise" name="dropdown"/>}
+              View comments ({numberOfReplies})
+           </Comment.Action>
+          )}
        </Comment.Actions>
      </Comment.Content>
-     {
-       comment.replies.length > 0 && (
-         <div>
-           <Accordion>
-             <Accordion.Title active={active} onClick={onToggleCommentReplies}>
-               <Icon name="dropdown"/>
-               View comments ({numberOfReplies})
-             </Accordion.Title>
-           </Accordion>
-           <Comment.Group>
-           {active && (
-             <div>
-               <Loader active={loadingReplies} inline="centered"/>
-               {replies.map(reply => {
-                return <CommentContainer key={reply._id} comment={reply}/>
-               })}
-               </div>
-             )}
-           </Comment.Group>
-         </div>
-       )
-     }
+     {active && (
+       <Comment.Group>
+          <div>
+           <Loader active={loadingReplies} inline="centered"/>
+           {replies.map(reply => {
+            return <CommentContainer key={reply._id} comment={reply}/>
+           })}
+           </div>
+         </Comment.Group>
+       )}
      {activeForm && <NewCommentContainer parentId={comment._id}/>}
   </Comment>
 );
