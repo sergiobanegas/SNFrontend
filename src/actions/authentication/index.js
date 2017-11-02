@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT, SET_AUTH_FORM_FIELD } from '../../types/authentication';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR, SIGN_UP_SUCCESS, SIGN_UP_ERROR, LOGOUT, SET_AUTH_FORM_FIELD, COMPLETED_FORM, INCOMPLETED_FORM } from '../../types/authentication';
 import { URI_SIGN_IN, URI_SIGN_UP } from '../../config';
 import { post } from '../../services/http';
 import { setUserToken, removeUserToken } from '../../services/storage';
@@ -24,25 +24,30 @@ export const logout = () => {
   }
 }
 
-export const signUp = (values) => {
+export const signUp = (fields) => {
   return dispatch => {
-    post(URI_SIGN_UP, {
-      email: values.email,
-      password: values.password,
-      name: values.name,
-      gender: values.gender
-    }, null).then(response => {
-      setUserToken(response.token);
-      dispatch({type: SIGN_UP_SUCCESS});
-      dispatch(push('/'));
-    }).catch(error => {
-      dispatch({type: SIGN_UP_ERROR, error: error.message});
-    });
+    if (fields.password != fields.passwordConfirmation) {
+      dispatch({type: SIGN_UP_ERROR, error: "Password not matching"});
+    } else {
+      post(URI_SIGN_UP, {
+        email: fields.email,
+        password: fields.password,
+        name: fields.name,
+        gender: fields.gender
+      }, null).then(response => {
+        setUserToken(response.token);
+        dispatch({type: SIGN_UP_SUCCESS});
+        dispatch(push('/'));
+      }).catch(error => {
+        dispatch({type: SIGN_UP_ERROR, error: error.message});
+      });
+    }
   }
 }
 
-export const setFormFieldValue = (field, value) => {
-  return dispatch => {
+export const setFormFieldValue = (field, value, completed) => {
+  return (dispatch, getState) => {
     dispatch({type: SET_AUTH_FORM_FIELD, field: field, value: value});
+    completed ? dispatch({type: COMPLETED_FORM}) : dispatch({type: INCOMPLETED_FORM});
   }
 }

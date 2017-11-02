@@ -21,8 +21,8 @@ let SignInComponent = ({ onSubmit, isIncomplete, error, onChange }) => (
               <Form.Input
                 type="email"
                 name="email"
-                onChange={e => onChange(e.target.name, e.target.value)}
                 label="Email"
+                onChange={e => onChange(e.target.name, e.target.value)}
               />
             </Form.Field>
            </Form.Group>

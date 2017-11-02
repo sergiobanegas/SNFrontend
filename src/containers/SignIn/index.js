@@ -12,19 +12,19 @@ class SignInContainer extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  onSubmit(values) {
+  onSubmit() {
     const { dispatch, email, password } = this.props;
     dispatch(signIn(email, password));
   }
 
   onChange(field, value) {
-    const { dispatch } = this.props;
-    dispatch(setFormFieldValue(field, value));
+    const { dispatch, email, password } = this.props;
+    let completed = email && password;
+    dispatch(setFormFieldValue(field, value, completed));
   }
 
    render () {
-     const {error} = this.props;
-     let isIncomplete = false;
+     const {error, isIncomplete} = this.props;
      return (
          <SignInComponent onSubmit={this.onSubmit} onChange={this.onChange} error={error} isIncomplete={isIncomplete}/>
      )
@@ -35,6 +35,7 @@ const mapStateToProps = state => {
   return {
     email: state.authenticationReducer["email"],
     password: state.authenticationReducer["password"],
+    isIncomplete: state.authenticationReducer.isIncomplete,
     error : state.authenticationReducer.error
   }
 }
