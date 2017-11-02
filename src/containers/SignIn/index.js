@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SignInComponent from '../../components/SignIn';
-import { signIn, setFormFieldValue } from '../../actions/authentication';
+import { signIn, setSignInFormFieldValue } from '../../actions/authentication';
 
 class SignInContainer extends Component {
 
@@ -18,9 +18,8 @@ class SignInContainer extends Component {
   }
 
   onChange(field, value) {
-    const { dispatch, email, password } = this.props;
-    let completed = email && password;
-    dispatch(setFormFieldValue(field, value, completed));
+    const { dispatch } = this.props;
+    dispatch(setSignInFormFieldValue(field, value));
   }
 
    render () {

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GENDER_OPTIONS } from '../../types/authentication';
 import SignUpComponent from '../../components/SignUp';
-import { signUp, setFormFieldValue } from '../../actions/authentication';
+import { signUp, setSignUpFormFieldValue } from '../../actions/authentication';
 
 class SignUpContainer extends Component {
 
@@ -14,9 +14,8 @@ class SignUpContainer extends Component {
   }
 
   onChange(field, value) {
-    const { dispatch, email, password, passwordConfirmation, name, gender } = this.props;
-    let completed = email && password && passwordConfirmation && name && gender;
-    dispatch(setFormFieldValue(field, value, completed));
+    const { dispatch } = this.props;
+    dispatch(setSignUpFormFieldValue(field, value));
   }
 
   onSubmit() {

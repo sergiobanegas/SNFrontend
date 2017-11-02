@@ -45,9 +45,20 @@ export const signUp = (fields) => {
   }
 }
 
-export const setFormFieldValue = (field, value, completed) => {
+export const setSignInFormFieldValue = (field, value) => {
   return (dispatch, getState) => {
     dispatch({type: SET_AUTH_FORM_FIELD, field: field, value: value});
+    let reducer = getState().authenticationReducer;
+    let completed = reducer["email"] && reducer["password"];
+    completed ? dispatch({type: COMPLETED_FORM}) : dispatch({type: INCOMPLETED_FORM});
+  }
+}
+
+export const setSignUpFormFieldValue = (field, value) => {
+  return (dispatch, getState) => {
+    dispatch({type: SET_AUTH_FORM_FIELD, field: field, value: value});
+    let reducer = getState().authenticationReducer;
+    let completed = reducer["email"] && reducer["password"] && reducer["passwordConfirmation"] && reducer["name"] && reducer["gender"];
     completed ? dispatch({type: COMPLETED_FORM}) : dispatch({type: INCOMPLETED_FORM});
   }
 }
