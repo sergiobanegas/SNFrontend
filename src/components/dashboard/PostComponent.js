@@ -28,17 +28,15 @@ const PostComponent = ({post, comments, active, onTogglePostComments, loadingCom
           <Icon name="dropdown" />
             View comments ({post.comments.length})
         </Accordion.Title>
-        <Accordion.Content active={active}>
-          <Comment.Group>
-            <Loader active={loadingComments} inline="centered"/>
-              {
-                comments.map(comment => {
-                   return <CommentContainer key={comment._id} comment={comment}/>
-                })
-              }
-          </Comment.Group>
-        </Accordion.Content>
       </Accordion>
+      <Comment.Group threaded collapsed={!active}>
+        <Loader active={loadingComments} inline="centered"/>
+          {
+            comments.map(comment => {
+               return <CommentContainer key={comment._id} comment={comment}/>
+            })
+          }
+      </Comment.Group>
     </Card.Content>
   </Card>
 );

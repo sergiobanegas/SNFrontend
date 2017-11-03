@@ -28,16 +28,12 @@ const CommentComponent = ({ comment, replies, active, numberOfReplies, onToggleC
           )}
        </Comment.Actions>
      </Comment.Content>
-     {active && (
-       <Comment.Group>
-          <div>
+       <Comment.Group collapsed={!active}>
            <Loader active={loadingReplies} inline="centered"/>
            {replies.map(reply => {
             return <CommentContainer key={reply._id} comment={reply}/>
            })}
-           </div>
-         </Comment.Group>
-       )}
+      </Comment.Group>
      {activeForm && <NewCommentContainer parentId={comment._id}/>}
   </Comment>
 );
