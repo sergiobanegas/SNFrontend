@@ -52,10 +52,7 @@ export default (state = initState, action) => {
     let activeComments = index === -1
       ? [...state.activeCommentsIds.slice(), action.parentId]
       : state.activeCommentsIds.slice();
-    return Object.assign({}, state, {[action.parentId]: comments, activeCommentsIds: activeComments, newCommentContent: undefined, isNewCommentFormIncomplete: true, newCommentFormShouldUpdate: true});
-  }
-  case COMMENT_UPDATED: {
-    return Object.assign({}, state, {newCommentFormShouldUpdate: false});
+    return Object.assign({}, state, {[action.parentId]: comments, activeCommentsIds: activeComments, newCommentContent: undefined, isNewCommentFormIncomplete: true, newCommentFormShouldUpdate: true, submitted: true});
   }
   default:
     return state
