@@ -1,5 +1,6 @@
 import { TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR, TOGGLE_COMMENT_REPLIES,
-GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR, NEW_COMMENT_SUCCESS, SHOW_NEW_COMMENT_FORM, SET_NEW_COMMENT_CONTENT, COMMENT_UPDATED } from '../../types/dashboard';
+GET_COMMENT_REPLIES_SUCCESS, GET_COMMENT_REPLIES_ERROR, NEW_COMMENT_SUCCESS, SHOW_NEW_COMMENT_FORM, SET_NEW_COMMENT_CONTENT } from '../../types/dashboard';
+import { PARENT_TYPE } from '../../types/dashboard';
 
 const initState = {
   activePostsIds: [],
@@ -8,8 +9,7 @@ const initState = {
   isNewCommentFormIncomplete: true,
   comments: {},
   errorComments: null,
-  newCommentContent: undefined,
-  newCommentFormShouldUpdate: false
+  newCommentContent: undefined
 }
 export default (state = initState, action) => {
   switch(action.type) {
@@ -48,11 +48,26 @@ export default (state = initState, action) => {
   case NEW_COMMENT_SUCCESS: {
     let comments = state[action.parentId] ? state[action.parentId].slice() : [];
     comments.push(action.comment);
-    let index = state.activeCommentsIds.indexOf(action.parentId);
-    let activeComments = index === -1
+    let newState = {
+      [action.parentId]: comments,
+      newCommentContent: undefined,
+      isNewCommentFormIncomplete: true
+    };
+    let index = -1;
+    if (action.parentType === PARENT_TYPE.POST) {
+      index = state.activePostsIds.indexOf(action.parentId);
+      let activePosts = index === -1
+      ? [...state.activePostsIds.slice(), action.parentId]
+      : state.activePostsIds.slice();
+      newState.activePostsIds = activePosts;
+    } else {
+      index = state.activeCommentsIds.indexOf(action.parentId);
+      let activeComments = index === -1
       ? [...state.activeCommentsIds.slice(), action.parentId]
       : state.activeCommentsIds.slice();
-    return Object.assign({}, state, {[action.parentId]: comments, activeCommentsIds: activeComments, newCommentContent: undefined, isNewCommentFormIncomplete: true, newCommentFormShouldUpdate: true, submitted: true});
+      newState.activeCommentsIds = activeComments;
+    }
+    return Object.assign({}, state, newState);
   }
   default:
     return state

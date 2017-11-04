@@ -1,11 +1,18 @@
 import { TOGGLE_POST_COMMENTS, GET_POST_COMMENTS_SUCCESS, GET_POST_COMMENTS_ERROR, TOGGLE_COMMENT_REPLIES, GET_COMMENT_REPLIES_SUCCESS,
-  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR, NEW_COMMENT_SUCCESS, NEW_COMMENT_ERROR, SHOW_NEW_COMMENT_FORM, SET_NEW_COMMENT_CONTENT, COMMENT_UPDATED } from '../../types/dashboard';
+  GET_COMMENT_REPLIES_ERROR, LIKE_SUCCESS, LIKE_ERROR, NEW_COMMENT_SUCCESS, NEW_COMMENT_ERROR, SHOW_NEW_COMMENT_FORM, SET_NEW_COMMENT_CONTENT } from '../../types/dashboard';
 import { URI_POSTS, URI_COMMENTS, URI_LIKE } from '../../config';
 import { get, post } from '../../services/http';
+import { PARENT_TYPE } from '../../types/dashboard';
 
 export const togglePostComments = postId => {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch({type: TOGGLE_POST_COMMENTS, postId: postId});
+    dispatch(getPostComments(postId));
+  }
+}
+
+const getPostComments = postId => {
+  return dispatch => {
     get(`${URI_POSTS}/${postId}`, null, null).then(response => {
       dispatch({type: GET_POST_COMMENTS_SUCCESS, comments: response.comments, postId: postId});
     }).catch(error => {
@@ -41,17 +48,22 @@ export const likeComment = commentId => {
   }
 }
 
-export const newComment = (content, postId, commentId) => {
+export const newComment = (content, id, parentType) => {
   return (dispatch, getState) => {
-     post(`${URI_COMMENTS}`, {
-      content: content,
-      post_id: postId,
-      parent: commentId
-     }, null).then(response => {
-      let parentId = commentId !== null ? commentId : postId;
-      let shouldFetch = getState().dashboardReducer.commentsReducer.activeCommentsIds.indexOf(parentId) === -1;
-      dispatch({type: NEW_COMMENT_SUCCESS, comment: response, parentId: parentId});
-      shouldFetch && dispatch(getCommentReplies(parentId));
+     let body = {
+      content: content
+     };
+     if (parentType === PARENT_TYPE.POST) {
+      body.post_id = id;
+     } else {
+      body.parent = id;
+     }
+     post(`${URI_COMMENTS}`, body, null).then(response => {
+      let shouldFetch = getState().dashboardReducer.commentsReducer.activeCommentsIds.indexOf(id) === -1 || getState().dashboardReducer.commentsReducer.activePostsIds.indexOf(id);
+      dispatch({type: NEW_COMMENT_SUCCESS, comment: response, parentId: id, parentType: parentType});
+      if (shouldFetch) {
+        (parentType === PARENT_TYPE.POST) ? dispatch(getPostComments(id)) : dispatch(getCommentReplies(id));
+      }
     }).catch(error => {
       dispatch({type: NEW_COMMENT_ERROR, error: error.message});
     });
@@ -67,11 +79,5 @@ export const showNewCommentForm = id => {
 export const setNewCommentContent = content => {
   return dispatch => {
       dispatch({type: SET_NEW_COMMENT_CONTENT, content: content});
-  }
-}
-
-export const updateFormInput = () => {
-  return dispatch => {
-      dispatch({type: COMMENT_UPDATED});
   }
 }

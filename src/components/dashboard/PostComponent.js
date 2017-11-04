@@ -1,7 +1,9 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { Card, Accordion, Icon, Comment, Loader, Container, Image } from 'semantic-ui-react';
-import CommentContainer from '../../containers/Dashboard/Comment/';
+import CommentContainer from '../../containers/Dashboard/Comment';
+import NewCommentContainer from '../../containers/Dashboard/NewComment';
+import { PARENT_TYPE } from '../../types/dashboard';
 
 const PostComponent = ({post, comments, active, onTogglePostComments, loadingComments}) => (
   <Card key={post._id} fluid>
@@ -37,6 +39,9 @@ const PostComponent = ({post, comments, active, onTogglePostComments, loadingCom
             })
           }
       </Comment.Group>
+    </Card.Content>
+    <Card.Content extra>
+      <NewCommentContainer parentId={post._id} parentType={PARENT_TYPE.POST}/>
     </Card.Content>
   </Card>
 );

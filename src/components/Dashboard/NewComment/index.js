@@ -1,15 +1,14 @@
 import React from 'react';
-import { Form, Segment } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 let NewCommentComponent = ({onSubmit, onChange, isIncomplete, content}) => (
-  <Segment>
     <Form onSubmit={onSubmit}>
       <Form.Group>
         <Form.Field width={15}>
           <Form.Input
             type="content"
             name="content"
-            label="Content"
+            placeholder="..."
             value={content}
             onChange={e => onChange(e.target.value)}
           />
@@ -17,7 +16,6 @@ let NewCommentComponent = ({onSubmit, onChange, isIncomplete, content}) => (
         <Form.Button primary circular icon="send" disabled={isIncomplete}/>
       </Form.Group>
     </Form>
-  </Segment>
 );
 
 export default NewCommentComponent;

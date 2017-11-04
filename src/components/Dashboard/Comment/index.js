@@ -2,7 +2,8 @@ import React from 'react';
 import Moment from 'react-moment';
 import { Icon, Comment, Loader } from 'semantic-ui-react';
 import CommentContainer from '../../../containers/Dashboard/Comment';
-import NewCommentContainer from '../../../containers/Dashboard/Comment/NewComment';
+import NewCommentContainer from '../../../containers/Dashboard/NewComment';
+import { PARENT_TYPE } from '../../../types/dashboard';
 
 const CommentComponent = ({ comment, replies, active, numberOfReplies, onToggleCommentReplies, onCommentLiked, likes, loadingReplies, onOpenForm, activeForm }) => (
   <Comment key={comment._id}>
@@ -34,7 +35,7 @@ const CommentComponent = ({ comment, replies, active, numberOfReplies, onToggleC
             return <CommentContainer key={reply._id} comment={reply}/>
            })}
       </Comment.Group>
-     {activeForm && <NewCommentContainer parentId={comment._id}/>}
+     {activeForm && <NewCommentContainer parentId={comment._id} parentType={PARENT_TYPE.COMMENT}/>}
   </Comment>
 );
 

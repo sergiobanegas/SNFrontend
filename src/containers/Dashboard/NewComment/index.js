@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import NewCommentComponent from '../../../../components/Dashboard/Comment/NewComment';
-import { newComment, setNewCommentContent } from '../../../../actions/dashboard/comments';
+import NewCommentComponent from '../../../components/Dashboard/NewComment';
+import { newComment, setNewCommentContent } from '../../../actions/dashboard/comments';
 
 class NewCommentContainer extends Component {
 
@@ -12,8 +12,8 @@ class NewCommentContainer extends Component {
   }
 
   onSubmit() {
-    const { dispatch, parentId, content } = this.props;
-    dispatch(newComment(content, null, parentId));
+    const { dispatch, parentId, parentType, content } = this.props;
+    dispatch(newComment(content, parentId, parentType ));
   }
 
   onChange(content) {
@@ -24,7 +24,13 @@ class NewCommentContainer extends Component {
   render () {
     const { isIncomplete, submitted, content } = this.props;
     return (
-      <NewCommentComponent content={content} submitted={submitted} onSubmit={this.onSubmit} onChange={this.onChange} isIncomplete={isIncomplete}/>
+      <NewCommentComponent
+        content={content}
+        submitted={submitted}
+        onSubmit={this.onSubmit}
+        onChange={this.onChange}
+        isIncomplete={isIncomplete}
+      />
     );
   }
 
